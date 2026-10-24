@@ -1,0 +1,7 @@
+node_modules/
+dist/
+# Secrets (DB + Gmail passwords) never go to GitHub
+.env
+.env.*
+!.env.example
+*.log

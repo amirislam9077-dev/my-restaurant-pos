@@ -1,0 +1,19 @@
+{
+  "name": "hotel-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "db:init": "node initDb.js",
+    "menu:import": "node importMenu.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "my-restaurant-pos": "file:..",
+    "mysql2": "^3.24.6",
+    "nodemailer": "^6.9.16"
+  }
+}

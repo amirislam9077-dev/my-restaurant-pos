@@ -1,0 +1,38 @@
+# Render Blueprint: one web service (Express API + built React app)
+services:
+  - type: web
+    name: my-restaurant
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/menu
+    envVars:
+      - key: NODE_VERSION
+        value: 22.20.0
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: hotel_db
+      - key: DB_SSL
+        value: "true"
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: RESTAURANT_NAME
+        value: My Restaurant
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        sync: false

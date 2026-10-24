@@ -1,0 +1,331 @@
+[
+  {
+    "id": "deals",
+    "tag": "HOT OFFERS",
+    "heading": "Today's Deals",
+    "items": [
+      {
+        "name": "Zinger Deal",
+        "price": 620,
+        "oldPrice": 890,
+        "desc": "1 Zinger Burger + 1 Regular Fries + 1 Pepsi (Regular)",
+        "img": "images/deal1.jpg"
+      },
+      {
+        "name": "Family Feast",
+        "price": 3199,
+        "oldPrice": 4500,
+        "desc": "8 pc Original Recipe Chicken + 4 Regular Fries + 4 Drinks + Dessert",
+        "img": "images/deal2.jpg"
+      },
+      {
+        "name": "Krunch Deal",
+        "price": 590,
+        "oldPrice": 790,
+        "desc": "1 Krunch Burger + 1 Regular Fries + 1 Regular Coleslaw",
+        "img": "images/deal3.jpg"
+      },
+      {
+        "name": "Twister Combo",
+        "price": 650,
+        "oldPrice": 850,
+        "desc": "1 Twister Wrap + 1 Regular Fries + 1 Pepsi (Regular)",
+        "img": "images/deal4.jpg"
+      },
+      {
+        "name": "Rice Bowl Deal",
+        "price": 570,
+        "oldPrice": 730,
+        "desc": "1 Rice Bowl + 1 Drink + 1 Snack",
+        "img": "images/deal5.jpg"
+      },
+      {
+        "name": "Streetwise 2",
+        "price": 450,
+        "oldPrice": 560,
+        "desc": "2 pc Original Recipe Chicken + 1 Regular Fries",
+        "img": "images/deal6.jpg"
+      }
+    ]
+  },
+  {
+    "id": "burgers",
+    "tag": "BURGERS",
+    "heading": "Our Burgers",
+    "items": [
+      {
+        "name": "Zinger Burger",
+        "price": 520,
+        "oldPrice": null,
+        "desc": "A legendary extra-crispy, spicy chicken fillet in a toasted sesame bun with fresh lettuce and mayo",
+        "img": "images/zinger.jpg"
+      },
+      {
+        "name": "Krunch Burger",
+        "price": 460,
+        "oldPrice": null,
+        "desc": "Tender crispy chicken fillet with creamy coleslaw in a soft toasted bun",
+        "img": "images/krunch.jpg"
+      },
+      {
+        "name": "Zinger Stacker",
+        "price": 850,
+        "oldPrice": null,
+        "desc": "Two Zinger fillets stacked high with crunchy slaw, cheese & special sauce",
+        "img": "images/zinger-stacker.jpg"
+      },
+      {
+        "name": "Zinger Tower Burger",
+        "price": 680,
+        "oldPrice": null,
+        "desc": "Zinger fillet topped with a hash brown & tangy tower sauce — next level!",
+        "img": "images/zinger-tower.jpg"
+      },
+      {
+        "name": "BBQ Crunch Burger",
+        "price": 620,
+        "oldPrice": null,
+        "desc": "Crispy chicken fillet with smoky BBQ sauce, onion rings & cheese",
+        "img": "images/bbq-crunch.jpg"
+      },
+      {
+        "name": "Chicken Fillet Burger",
+        "price": 390,
+        "oldPrice": null,
+        "desc": "Classic chicken fillet with lettuce, tomato and mayo in a sesame bun",
+        "img": "images/fillet.jpg"
+      }
+    ]
+  },
+  {
+    "id": "chicken",
+    "tag": "SIGNATURE",
+    "heading": "Fried Chicken",
+    "items": [
+      {
+        "name": "Original Recipe 1pc",
+        "price": 320,
+        "oldPrice": null,
+        "desc": "The legendary blend of 11 herbs & spices — crispy outside, juicy inside",
+        "img": "images/original-recipe.jpg"
+      },
+      {
+        "name": "Original Recipe 3pc",
+        "price": 890,
+        "oldPrice": null,
+        "desc": "Three pieces of our signature Original Recipe chicken",
+        "img": "images/original-3pc.jpg"
+      },
+      {
+        "name": "Hot Wings 5pc",
+        "price": 490,
+        "oldPrice": null,
+        "desc": "Five fiery hot wings, crispy and packed with spicy flavour",
+        "img": "images/hot-wings.jpg"
+      },
+      {
+        "name": "Popcorn Chicken Regular",
+        "price": 350,
+        "oldPrice": null,
+        "desc": "Bite-sized pieces of juicy chicken, perfectly seasoned and fried",
+        "img": "images/popcorn.jpg"
+      },
+      {
+        "name": "Popcorn Chicken Large",
+        "price": 580,
+        "oldPrice": null,
+        "desc": "A bigger bucket of our legendary bite-sized popcorn chicken",
+        "img": "images/popcorn-lg.jpg"
+      },
+      {
+        "name": "Chicken Strips 3pc",
+        "price": 470,
+        "oldPrice": null,
+        "desc": "Tender strips of premium chicken breast, lightly breaded and fried",
+        "img": "images/strips.jpg"
+      }
+    ]
+  },
+  {
+    "id": "wraps",
+    "tag": "ON THE GO",
+    "heading": "Wraps & Snacks",
+    "items": [
+      {
+        "name": "Twister",
+        "price": 430,
+        "oldPrice": null,
+        "desc": "Crispy chicken, fresh salad and sauces wrapped in a warm tortilla",
+        "img": "images/twister.jpg"
+      },
+      {
+        "name": "Zinger Twister",
+        "price": 490,
+        "oldPrice": null,
+        "desc": "Spicy Zinger fillet, fresh lettuce & chilli sauce in a warm tortilla wrap",
+        "img": "images/zinger-twister.jpg"
+      },
+      {
+        "name": "Rice Bowl",
+        "price": 380,
+        "oldPrice": null,
+        "desc": "Steamed rice topped with crispy chicken strips & our special sauce",
+        "img": "images/rice-bowl.jpg"
+      },
+      {
+        "name": "Mini Fillet Burger",
+        "price": 250,
+        "oldPrice": null,
+        "desc": "A smaller, perfectly portioned crispy chicken burger — great as a snack",
+        "img": "images/mini-fillet.jpg"
+      },
+      {
+        "name": "Hash Brown",
+        "price": 130,
+        "oldPrice": null,
+        "desc": "Golden crispy potato hash brown — perfect anytime snack",
+        "img": "images/hash-brown.jpg"
+      },
+      {
+        "name": "Chicken Roll",
+        "price": 290,
+        "oldPrice": null,
+        "desc": "Tender chicken pieces with fresh veggies in a soft roll — quick & tasty",
+        "img": "images/chicken-roll.jpg"
+      }
+    ]
+  },
+  {
+    "id": "sides",
+    "tag": "SIDES",
+    "heading": "Perfect Sides",
+    "items": [
+      {
+        "name": "Regular Fries",
+        "price": 190,
+        "oldPrice": null,
+        "desc": "Classic golden crispy fries, lightly salted — a perfect companion",
+        "img": "images/fries-reg.jpg"
+      },
+      {
+        "name": "Large Fries",
+        "price": 270,
+        "oldPrice": null,
+        "desc": "A bigger serving of our delicious golden crispy fries",
+        "img": "images/fries-lg.jpg"
+      },
+      {
+        "name": "Coleslaw Regular",
+        "price": 150,
+        "oldPrice": null,
+        "desc": "Fresh, creamy coleslaw made with cabbage and carrots in our special dressing",
+        "img": "images/coleslaw.jpg"
+      },
+      {
+        "name": "Corn on the Cob",
+        "price": 160,
+        "oldPrice": null,
+        "desc": "Sweet corn, grilled to perfection with a touch of butter",
+        "img": "images/corn.jpg"
+      },
+      {
+        "name": "Mashed Potato & Gravy",
+        "price": 180,
+        "oldPrice": null,
+        "desc": "Creamy mashed potato smothered in rich chicken gravy",
+        "img": "images/mashed.jpg"
+      },
+      {
+        "name": "Baked Beans",
+        "price": 140,
+        "oldPrice": null,
+        "desc": "Slow-cooked beans in a sweet and tangy tomato sauce",
+        "img": "images/baked-beans.jpg"
+      }
+    ]
+  },
+  {
+    "id": "drinks",
+    "tag": "BEVERAGES",
+    "heading": "Refreshing Drinks",
+    "items": [
+      {
+        "name": "Pepsi Regular",
+        "price": 110,
+        "oldPrice": null,
+        "desc": "Chilled Pepsi to wash down your meal — the perfect combo",
+        "img": "images/pepsi.jpg"
+      },
+      {
+        "name": "Pepsi Large",
+        "price": 160,
+        "oldPrice": null,
+        "desc": "Extra large Pepsi to keep you refreshed all meal long",
+        "img": "images/pepsi-lg.jpg"
+      },
+      {
+        "name": "7UP Regular",
+        "price": 110,
+        "oldPrice": null,
+        "desc": "Refreshingly crisp and lemon-lime 7UP soft drink",
+        "img": "images/7up.jpg"
+      },
+      {
+        "name": "Mirinda Regular",
+        "price": 110,
+        "oldPrice": null,
+        "desc": "Sweet and fruity Mirinda orange drink — refreshing and delicious",
+        "img": "images/mirinda.jpg"
+      },
+      {
+        "name": "Mineral Water",
+        "price": 80,
+        "oldPrice": null,
+        "desc": "Still mineral water — pure and refreshing",
+        "img": "images/water.jpg"
+      },
+      {
+        "name": "Chocolate Milkshake",
+        "price": 280,
+        "oldPrice": null,
+        "desc": "Rich, creamy chocolate milkshake — indulgently smooth and satisfying",
+        "img": "images/milkshake.jpg"
+      }
+    ]
+  },
+  {
+    "id": "desserts",
+    "tag": "SWEET TREATS",
+    "heading": "Delicious Desserts",
+    "items": [
+      {
+        "name": "Soft Serve Ice Cream",
+        "price": 120,
+        "oldPrice": null,
+        "desc": "Smooth and creamy vanilla soft serve — a cool, classic treat",
+        "img": "images/soft-serve.jpg"
+      },
+      {
+        "name": "Chocolate Sundae",
+        "price": 160,
+        "oldPrice": null,
+        "desc": "Soft serve topped with rich chocolate sauce — irresistible!",
+        "img": "images/sundae.jpg"
+      },
+      {
+        "name": "Strawberry Sundae",
+        "price": 160,
+        "oldPrice": null,
+        "desc": "Creamy soft serve drizzled with sweet strawberry sauce",
+        "img": "images/strawberry-sundae.jpg"
+      },
+      {
+        "name": "Chocolate Brownie",
+        "price": 200,
+        "oldPrice": null,
+        "desc": "Warm, gooey chocolate brownie — the perfect end to a CFC meal",
+        "img": "images/brownie.jpg"
+      }
+    ]
+  }
+]

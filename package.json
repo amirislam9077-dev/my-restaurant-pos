@@ -1,0 +1,11 @@
+{
+  "name": "my-restaurant-pos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Restaurant POS: dine-in tables, takeaway, phone & online orders, reports (React + Express + MySQL)",
+  "scripts": {
+    "build": "npm install --prefix server && npm install --prefix client --include=dev && npm run build --prefix client",
+    "start": "node server/initDb.js && node server/index.js"
+  },
+  "engines": { "node": ">=20" }
+}
