@@ -10,6 +10,11 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 22.20.0
+      # Pakistan time for dates in reports and order numbers
+      - key: TZ
+        value: Asia/Karachi
+      - key: DB_TIMEZONE
+        value: "+05:00"
       - key: DB_HOST
         sync: false
       - key: DB_PORT

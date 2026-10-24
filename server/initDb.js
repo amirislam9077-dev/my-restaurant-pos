@@ -13,6 +13,7 @@ const conn = await mysql.createConnection({
   // Cloud MySQL (e.g. Aiven) needs SSL: set DB_SSL=true there
   ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
 });
+await conn.query(`SET time_zone = '${process.env.DB_TIMEZONE || '+05:00'}'`);
 await conn.query(sql);
 
 // Migrations for databases created by an older schema.sql
