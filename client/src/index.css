@@ -955,3 +955,8 @@ a.notify-row { color: #166534; border-color: #bbf7d0; background: #f0fdf4; white
   .ts-more { align-self: stretch; text-align: center; }
 }
 .today-page > * { flex-shrink: 0; }
+/* v43 Online orders page: today's summary + pending / completed */
+.ts-stats.online-stats { grid-template-columns: repeat(3, 1fr); margin: 10px 0 4px; }
+@media (max-width: 900px) { .ts-stats.online-stats { grid-template-columns: 1fr 1fr; } }
+.ts-h + .orders, .ts-h + .ts-table-wrap, .ts-h + .ts-empty { margin-top: 10px; }
+h3.ts-h { margin-top: 18px; }
