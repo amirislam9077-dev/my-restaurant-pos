@@ -243,7 +243,41 @@ app.get('/api/track/:id', async (req, res) => {
 });
 
 // Place order. Customers: dine_in / online. Admin only: takeaway / phone.
-app.post('/api/orders', optionalAdmin, async (req, res) => {
+// Orders from the CFC website (kfc-clone-demo.vercel.app) checkout. It sends item names, not our ids:
+// match them to our menu by name, then continue as a normal online order (prices always from our menu).
+app.post('/api/public/online-order', async (req, res, next) => {
+  const b = req.body || {};
+  const wanted = (Array.isArray(b.items) ? b.items : []).filter(i => i?.name && Number(i.qty) > 0);
+  if (!wanted.length) return res.status(400).json({ error: 'No items' });
+  const [menu] = await pool.query(
+    'SELECT id, name FROM menu_items WHERE available = 1 AND LOWER(name) IN (?)',
+    [wanted.map(i => String(i.name).trim().toLowerCase())]
+  );
+  const idOf = Object.fromEntries(menu.map(m => [m.name.toLowerCase(), m.id]));
+  const missing = wanted.filter(i => !idOf[String(i.name).trim().toLowerCase()]).map(i => i.name);
+  if (missing.length) return res.status(400).json({ error: 'Menu mein nahi mila: ' + missing.join(', ') });
+
+  const takeaway = /takeaway/i.test(b.type || '');
+  const note = [
+    b.ref && `Website ${b.ref}`,
+    takeaway ? 'Takeaway (customer khud lega)' : 'Home Delivery',
+    b.payment,
+    !takeaway && b.deliveryFee ? `Delivery fee Rs ${b.deliveryFee}` : null,
+    b.landmark && `Landmark: ${b.landmark}`,
+    b.notes,
+  ].filter(Boolean).join(' · ').slice(0, 255);
+  req.body = {
+    order_type: 'online',
+    customer_name: b.name, customer_phone: b.phone, customer_email: b.email,
+    address: takeaway ? 'Takeaway - customer khud lega' : b.address,
+    note,
+    items: wanted.map(i => ({ menu_item_id: idOf[String(i.name).trim().toLowerCase()], qty: Math.floor(Number(i.qty)) })),
+  };
+  req.admin = null; // website customers are never staff
+  next();
+});
+
+app.post(['/api/orders', '/api/public/online-order'], (req, res, next) => (req.path === '/api/orders' ? optionalAdmin(req, res, next) : next()), async (req, res) => {
   const { order_type = 'dine_in', table_id, items, note, customer_name, customer_phone, address } = req.body;
   const customer_email = req.body.customer_email?.trim() || null;
   if (customer_email && !isEmail(customer_email)) return res.status(400).json({ error: 'Email sahi nahi hai' });

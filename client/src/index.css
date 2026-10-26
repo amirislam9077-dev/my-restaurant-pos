@@ -869,3 +869,4 @@ a.notify-row { color: #166534; border-color: #bbf7d0; background: #f0fdf4; white
 /* ---------- v39: empty report notice ---------- */
 .rep-empty { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 14px; }
 .rep-empty .btn-outline { padding: 6px 14px; border-radius: 50px; }
+.pending-card { border: 2px dashed #fda4af; }

@@ -17,12 +17,15 @@ export default function OrdersReport() {
   const [error, setError] = useState('');
   const [open, setOpen] = useState(null);
   const [trends, setTrends] = useState(null);
+  // Orders not paid yet (e.g. a new website order) - sales figures above only count paid orders
+  const [pending, setPending] = useState([]);
 
   useEffect(() => {
     setData(null);
     setTrends(null);
     api.reportOrders(from, to, type).then(setData).catch(e => setError(e.message));
     api.trends(from, to, 'all', type).then(setTrends).catch(e => setError(e.message));
+    api.orders().then(list => setPending(list.filter(o => !type || o.order_type === type))).catch(() => setPending([]));
   }, [from, to, type]);
 
   const pickType = (t) => {
@@ -106,6 +109,28 @@ export default function OrdersReport() {
               </table>
             </section>
           </div>
+
+          {pending.length > 0 && (
+            <section className="rep-card pending-card">
+              <h3>⏳ Pending orders ({pending.length}) · payment baaki</h3>
+              <p className="muted rep-hint">Abhi sale mein nahi gine gaye. Paid hone ke baad upar aur neeche ki list mein aa jayenge.</p>
+              <table className="rep-table">
+                <thead><tr><th>Order</th><th className="hide-sm">Time</th><th>Customer</th><th className="hide-sm">Items</th><th>Total</th><th>Status</th></tr></thead>
+                <tbody>
+                  {pending.map(o => (
+                    <tr key={o.id}>
+                      <td><b>{orderCode(o)}</b></td>
+                      <td className="hide-sm">{new Date(o.created_at).toLocaleString([], { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })}</td>
+                      <td>{o.table_id ? `Table ${o.table_id}` : o.customer_name || '-'}{o.customer_phone && <small className="muted"> · {o.customer_phone}</small>}</td>
+                      <td className="hide-sm">{o.items.map(i => `${i.name} × ${i.qty}`).join(', ')}</td>
+                      <td>{rs(o.total)}</td>
+                      <td><span className={`badge ${o.status}`}>{o.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          )}
 
           <section className="rep-card">
             <h3>Every order ({orders.length})</h3>
