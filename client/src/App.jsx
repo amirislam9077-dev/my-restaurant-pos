@@ -12,6 +12,8 @@ import History from './pages/admin/History';
 import Waiters from './pages/admin/Waiters';
 import BillPage from './pages/admin/BillPage';
 import ReportsLayout from './pages/reports/ReportsLayout';
+import ReportsGate from './pages/reports/ReportsGate';
+import Account from './pages/admin/Account';
 import Dashboard from './pages/reports/Dashboard';
 import SalesReport from './pages/reports/SalesReport';
 import OrdersReport from './pages/reports/OrdersReport';
@@ -70,10 +72,11 @@ export default function App() {
         <Route path="waiters" element={<Waiters />} />
         <Route path="qr" element={<QrCodes />} />
         <Route path="history" element={<History />} />
+        <Route path="account" element={<Account />} />
         <Route path="bill/:kind/:id" element={<BillPage />} />
       </Route>
       {/* Owner reports with a left navbar */}
-      <Route path="/reports" element={<RequireAuth><ReportsLayout /></RequireAuth>}>
+      <Route path="/reports" element={<ReportsGate><ReportsLayout /></ReportsGate>}>
         <Route index element={<Dashboard />} />
         <Route path="sales" element={<SalesReport />} />
         <Route path="orders" element={<OrdersReport />} />

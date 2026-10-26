@@ -54,6 +54,10 @@ if (!(await hasColumn('orders', 'paid_at'))) {
 if (!(await hasColumn('orders', 'order_no'))) {
   await conn.query('ALTER TABLE hotel_db.orders ADD COLUMN order_no INT NULL AFTER order_type');
 }
+// Admin can log in with an email as well as the username
+if (!(await hasColumn('admins', 'email'))) {
+  await conn.query('ALTER TABLE hotel_db.admins ADD COLUMN email VARCHAR(120) NULL UNIQUE AFTER username');
+}
 // Number any orders that don't have one yet: per type, per day, in id order
 const [unnumbered] = await conn.query('SELECT id, order_type, DATE(created_at) AS day FROM hotel_db.orders WHERE order_no IS NULL ORDER BY id');
 for (const o of unnumbered) {

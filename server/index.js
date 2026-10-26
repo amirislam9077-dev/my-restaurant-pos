@@ -24,12 +24,39 @@ const ACTIVE = "('pending','accepted','served')";
 
 // ---------- Auth ----------
 app.post('/api/auth/login', async (req, res) => {
-  const { username, password } = req.body;
-  const [rows] = await pool.query('SELECT * FROM admins WHERE username = ?', [username]);
+  // "username" may be the admin's username or email
+  const login = String(req.body.username || '').trim();
+  const { password } = req.body;
+  const [rows] = await pool.query('SELECT * FROM admins WHERE username = ? OR email = ?', [login, login.toLowerCase()]);
   if (!rows.length || !checkPassword(password || '', rows[0].password_hash)) {
-    return res.status(401).json({ error: 'Galat username ya password' });
+    return res.status(401).json({ error: 'Wrong email or password' });
   }
   res.json({ token: createToken(rows[0]), username: rows[0].username });
+});
+
+app.get('/api/auth/me', requireAdmin, async (req, res) => {
+  const [rows] = await pool.query('SELECT username, email FROM admins WHERE id = ?', [req.admin.id]);
+  res.json(rows[0] || {});
+});
+
+// Account page: set the login email and/or a new password; always needs the current password
+app.post('/api/auth/account', requireAdmin, async (req, res) => {
+  const { currentPassword, email, newPassword } = req.body;
+  const [rows] = await pool.query('SELECT * FROM admins WHERE id = ?', [req.admin.id]);
+  if (!rows.length || !checkPassword(currentPassword || '', rows[0].password_hash)) {
+    return res.status(400).json({ error: 'Current password is wrong' });
+  }
+  const mail = String(email || '').trim().toLowerCase();
+  if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) return res.status(400).json({ error: 'Enter a valid email' });
+  if (newPassword && newPassword.length < 6) return res.status(400).json({ error: 'New password must be at least 6 characters' });
+  try {
+    await pool.query('UPDATE admins SET email = ? WHERE id = ?', [mail || null, req.admin.id]);
+  } catch (e) {
+    if (e.code === 'ER_DUP_ENTRY') return res.status(400).json({ error: 'This email is already used' });
+    throw e;
+  }
+  if (newPassword) await pool.query('UPDATE admins SET password_hash = ? WHERE id = ?', [hashPassword(newPassword), req.admin.id]);
+  res.json({ ok: true, email: mail || null });
 });
 
 app.post('/api/auth/change-password', requireAdmin, async (req, res) => {

@@ -22,7 +22,7 @@ export default function Login() {
   return (
     <form className="login-box" onSubmit={submit}>
       <h2>🔐 Admin Login</h2>
-      <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} autoFocus />
+      <input placeholder="Email or username" autoComplete="username" value={username} onChange={e => setUsername(e.target.value)} autoFocus />
       <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
       {error && <p className="error">{error}</p>}
       <button className="primary" type="submit">Login</button>

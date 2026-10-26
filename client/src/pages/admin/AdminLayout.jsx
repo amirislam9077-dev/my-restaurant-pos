@@ -11,6 +11,7 @@ const MANAGE = [
   ['/waiters', '🧑‍🍳 Waiters'],
   ['/qr', '🔳 QR Codes'],
   ['/history', '🧾 Today'],
+  ['/account', '👤 Account'],
 ];
 
 // Loads tables + active orders every 5s and shares them with all admin pages

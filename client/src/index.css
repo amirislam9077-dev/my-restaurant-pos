@@ -961,3 +961,10 @@ a.notify-row { color: #166534; border-color: #bbf7d0; background: #f0fdf4; white
 .ts-h + .orders, .ts-h + .ts-table-wrap, .ts-h + .ts-empty { margin-top: 10px; }
 h3.ts-h { margin-top: 18px; }
 .rep-table.by-type { margin-bottom: 18px; }
+/* v44 Reports login gate + Account page */
+.gate-back { display: block; text-align: center; margin-top: 12px; }
+.account-box { max-width: 460px; display: flex; flex-direction: column; gap: 2px; }
+.account-box label { font-weight: 600; margin-top: 8px; }
+.account-box .primary { margin-top: 12px; }
+.ok-msg { color: #15803d; font-weight: 600; }
+.account-box.panel { position: static; }
