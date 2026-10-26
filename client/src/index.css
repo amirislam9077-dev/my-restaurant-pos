@@ -1094,3 +1094,9 @@ h3.ts-h { margin-top: 18px; }
   .rep-brand b { font-size: 16px; }
   .rep-foot { padding: 4px 12px 6px; }
 }
+/* v48 Phones: start and end date on one line, Print below */
+@media (max-width: 640px) {
+  .rep-custom { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 6px; }
+  .rep-custom input { width: 100%; min-width: 0; box-sizing: border-box; font-size: 14px; padding: 7px 6px; }
+  .rep-custom .btn-outline { grid-column: 1 / -1; }
+}
