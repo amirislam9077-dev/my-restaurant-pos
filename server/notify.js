@@ -61,27 +61,24 @@ async function sendWhatsApp(number, text) {
   if (!res.ok) throw new Error(`WhatsApp API ${res.status}: ${(await res.text()).slice(0, 200)}`);
 }
 
-// Returns per-channel result: 'sent' | 'failed' | 'not_configured' | 'skipped' (no address given),
-// plus ready links so the admin can send it by hand when automatic sending isn't set up.
-export async function notifyCustomer(order, lines) {
+// Returns at once with per-channel state: 'sending' (going out in the background), 'not_configured',
+// or 'skipped' (no address given), plus ready links so the admin can send it by hand when needed.
+// Sending runs after the response so placing an order never waits on Gmail / WhatsApp.
+export function notifyCustomer(order, lines) {
   const { subject, text } = orderMessage(order, lines);
   const number = waNumber(order.customer_phone);
   const email = isEmail(order.customer_email) ? order.customer_email : '';
   const result = {
-    email: email ? 'not_configured' : 'skipped',
-    whatsapp: number ? 'not_configured' : 'skipped',
+    email: email ? (smtpReady() ? 'sending' : 'not_configured') : 'skipped',
+    whatsapp: number ? (waReady() ? 'sending' : 'not_configured') : 'skipped',
     waLink: number ? `https://wa.me/${number}?text=${encodeURIComponent(text)}` : null,
     mailtoLink: email ? `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}` : null,
   };
-  const jobs = [];
-  if (email && smtpReady()) {
-    jobs.push(sendEmail(email, subject, text).then(() => { result.email = 'sent'; })
-      .catch(e => { result.email = 'failed'; result.emailError = e.message; console.error('Email failed:', e.message); }));
+  if (result.email === 'sending') {
+    sendEmail(email, subject, text).catch(e => console.error('Email failed:', e.message));
   }
-  if (number && waReady()) {
-    jobs.push(sendWhatsApp(number, text).then(() => { result.whatsapp = 'sent'; })
-      .catch(e => { result.whatsapp = 'failed'; result.whatsappError = e.message; console.error('WhatsApp failed:', e.message); }));
+  if (result.whatsapp === 'sending') {
+    sendWhatsApp(number, text).catch(e => console.error('WhatsApp failed:', e.message));
   }
-  await Promise.all(jobs);
   return result;
 }

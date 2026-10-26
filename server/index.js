@@ -352,7 +352,7 @@ app.post(['/api/orders', '/api/public/online-order'], (req, res, next) => (req.p
     let notify = null;
     if (customer_phone || customer_email) {
       const nameOf = Object.fromEntries(menu.map(m => [m.id, m.name]));
-      notify = await notifyCustomer(
+      notify = notifyCustomer(
         { order_type, order_no: next, table_id: order_type === 'dine_in' ? table_id : null, customer_name, customer_phone, customer_email, status, total },
         lines.map(l => ({ name: l.label || nameOf[l.id], qty: l.qty, price: l.price }))
       );

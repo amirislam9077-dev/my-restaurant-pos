@@ -16,7 +16,8 @@ export default function NotifyStatus({ notify }) {
     <div className="notify-box">
       <small>Customer ko order ka message:</small>
       {rows.map(r => (
-        r.state === 'sent'
+        // 'sending' = going out automatically in the background
+        r.state === 'sent' || r.state === 'sending'
           ? <div key={r.key} className="notify-row sent">{r.name} {LABEL.sent}</div>
           : (
             <a key={r.key} className="notify-row btn-outline" href={r.link} target="_blank" rel="noreferrer">

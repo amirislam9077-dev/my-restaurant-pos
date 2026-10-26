@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
 import MenuPicker, { CartSummary, cartToItems } from './MenuPicker';
@@ -29,6 +29,9 @@ export default function OrderComposer({ type, tableId, defaultWaiterId, reorderF
   const [reference, setReference] = useState(null);
   const [saved, setSaved] = useState(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+  // True while an order is being saved: blocks double clicks that would create duplicate orders
+  const [saving, setSaving] = useState(false);
+  const savingRef = useRef(false); // set synchronously, so even clicks in the same instant are blocked
   // Counter takeaway: pay on the spot (no pending orders)
   const [payOpen, setPayOpen] = useState(false);
   const [received, setReceived] = useState('');
@@ -102,12 +105,15 @@ export default function OrderComposer({ type, tableId, defaultWaiterId, reorderF
   // andPrint: save, then go straight to the Kitchen + Customer print
   // payNow: counter takeaway, saved as paid with the cash received
   const save = async (andPrint = false, payNow = false) => {
+    if (savingRef.current) return;
     const missing = missingDetails();
     if (missing) {
       setMsg(missing);
       if (isPhone()) setSheetOpen(true);
       return;
     }
+    savingRef.current = true;
+    setSaving(true);
     try {
       const created = await api.placeOrder({
         order_type: type,
@@ -136,6 +142,9 @@ export default function OrderComposer({ type, tableId, defaultWaiterId, reorderF
     } catch (e) {
       setSaved(null);
       setMsg(e.message);
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
     }
   };
 
@@ -242,8 +251,8 @@ export default function OrderComposer({ type, tableId, defaultWaiterId, reorderF
             <button className="primary pay-btn" disabled={!itemCount} onClick={openPay}>💰 Receive Payment</button>
           ) : (
             <div className="add-row">
-              <button className="primary" disabled={!itemCount} onClick={() => save()}>Add Order</button>
-              <button className="btn-outline" disabled={!itemCount} onClick={() => save(true)}>🖨️ Add Order &amp; Print</button>
+              <button className="primary" disabled={!itemCount || saving} onClick={() => save()}>{saving ? '⏳ Order add ho raha hai…' : 'Add Order'}</button>
+              <button className="btn-outline" disabled={!itemCount || saving} onClick={() => save(true)}>🖨️ Add Order &amp; Print</button>
             </div>
           )}
           {msg && <p className="msg warn">{msg}</p>}
@@ -283,7 +292,7 @@ export default function OrderComposer({ type, tableId, defaultWaiterId, reorderF
             <small>Pay</small>
           </button>
         ) : (
-          <button className="pos-print" disabled={!itemCount} onClick={() => save(true)}>
+          <button className="pos-print" disabled={!itemCount || saving} onClick={() => save(true)}>
             <span>🖨️</span>
             <small>Print</small>
           </button>
@@ -303,7 +312,7 @@ export default function OrderComposer({ type, tableId, defaultWaiterId, reorderF
               <button className="btn-outline" onClick={() => { setSheetOpen(false); setMsg(''); }}>✓ Done</button>
               {isCounter
                 ? <button className="primary" disabled={!itemCount} onClick={openPay}>💰 Receive Payment</button>
-                : <button className="primary" disabled={!itemCount} onClick={() => save(true)}>🖨️ Order &amp; Print</button>}
+                : <button className="primary" disabled={!itemCount || saving} onClick={() => save(true)}>{saving ? '⏳ …' : <>🖨️ Order &amp; Print</>}</button>}
             </div>
           </div>
         </div>
@@ -328,7 +337,7 @@ export default function OrderComposer({ type, tableId, defaultWaiterId, reorderF
                     placeholder={String(cartTotal)}
                     value={received}
                     onChange={e => setReceived(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && changeDue >= 0 && save(false, true)}
+                    onKeyDown={e => e.key === 'Enter' && changeDue >= 0 && !saving && save(false, true)}
                   />
                 </label>
                 <div className="quick-cash">
@@ -342,7 +351,7 @@ export default function OrderComposer({ type, tableId, defaultWaiterId, reorderF
                   {changeDue < 0 ? <>⚠️ {money(-changeDue)} kam hain</> : <>Wapas dein: <b>{money(changeDue)}</b></>}
                 </div>
                 {msg && <p className="msg warn">{msg}</p>}
-                <button className="primary pay-btn" disabled={changeDue < 0} onClick={() => save(false, true)}>✅ Payment Receive</button>
+                <button className="primary pay-btn" disabled={changeDue < 0 || saving} onClick={() => save(false, true)}>{saving ? '⏳ Payment save ho rahi hai…' : '✅ Payment Receive'}</button>
               </>
             ) : (
               <>
