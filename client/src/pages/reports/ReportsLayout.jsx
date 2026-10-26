@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { Link, NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { api, auth } from '../../api';
 
 const ymd = (d) => d.toLocaleDateString('en-CA'); // YYYY-MM-DD, local time
@@ -82,7 +82,8 @@ export default function ReportsLayout() {
           </a>
         </nav>
         <div className="rep-foot">
-          <Link to="/" className="rep-back" title="Orders (POS)">←<span className="rep-label"> Orders (POS)</span></Link>
+          {/* New tab, so the reports stay open (and don't ask for the password again) */}
+          <a href="/" target="_blank" rel="noreferrer" className="rep-back" title="Orders (POS)">←<span className="rep-label"> Orders (POS) ↗</span></a>
           <div className="rep-user">👤<span className="rep-label"> {auth.user()}</span> <button className="link" onClick={logout} title="Logout">Logout</button></div>
         </div>
       </aside>
