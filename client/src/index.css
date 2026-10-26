@@ -1059,3 +1059,38 @@ h3.ts-h { margin-top: 18px; }
   .site-sec { padding: 36px 0 24px; }
   .menu-sec .container { padding-left: 12px; padding-right: 12px; }
 }
+
+/* v47 Online page on tablets (iPad): menu full width, order form below, floating cart bar */
+@media (min-width: 641px) and (max-width: 1000px) {
+  .site .two-col { grid-template-columns: 1fr; }
+  .site #cart.panel { position: static; width: 100%; max-width: 620px; margin: 8px auto 0; box-sizing: border-box; scroll-margin-top: 90px; }
+  .site .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .site .chips::-webkit-scrollbar { display: none; }
+  .site .chip { flex: 0 0 auto; }
+  .site .cart-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    position: fixed; left: 50%; transform: translateX(-50%); width: min(560px, calc(100% - 32px)); bottom: calc(16px + env(safe-area-inset-bottom));
+    color: #fff; border: 0; border-radius: 12px; padding: 15px 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.25); z-index: 20; font-size: 16px;
+  }
+  .site .menu-sec { padding-bottom: 70px; }
+  .site-hero { height: 560px; min-height: 0; }
+  .hero-content { padding: 0 72px; }
+}
+@media (max-width: 640px) {
+  .site-hero { height: 460px; }
+  .site #cart.panel { scroll-margin-top: 76px; }
+}
+.hero-slide .hero-content { transition: opacity .35s; } .hero-slide:not(.active) .hero-content { opacity: 0; }
+/* v47 Reports on tablets: 3-card rows become 2 (last odd card full width) so tables are not cut */
+@media (min-width: 1001px) and (max-width: 1280px) {
+  .rep-grid:not(.two) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rep-grid:not(.two) > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+.rep-table td.muted { white-space: normal; }
+@media (max-width: 800px) {
+  .rep-brand { padding: 6px 12px; }
+  .rep-brand small { display: none; }
+  .rep-brand b { font-size: 16px; }
+  .rep-foot { padding: 4px 12px 6px; }
+}
