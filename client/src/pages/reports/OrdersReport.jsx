@@ -42,6 +42,11 @@ export default function OrdersReport() {
     const list = orders.filter(o => o.day === d.day);
     return { day: d.day, orders: list.length, sales: list.reduce((s, o) => s + o.total, 0) };
   });
+  // Sale per order type, for the Daily summary when "All" is selected
+  const byType = Object.keys(ORDER_TYPES).map(t => {
+    const list = orders.filter(o => o.order_type === t);
+    return { type: t, orders: list.length, sales: list.reduce((s, o) => s + o.total, 0) };
+  });
   const items = Object.values(orders.flatMap(o => o.items).reduce((acc, i) => {
     acc[i.name] = acc[i.name] || { name: i.name, qty: 0, revenue: 0 };
     acc[i.name].qty += i.qty;
@@ -97,6 +102,21 @@ export default function OrdersReport() {
             </section>
             <section className="rep-card">
               <h3>Daily summary</h3>
+              {!type && (
+                <table className="rep-table by-type">
+                  <thead><tr><th>Order type</th><th>Orders</th><th>Sales</th><th>Share</th></tr></thead>
+                  <tbody>
+                    {byType.map(t => (
+                      <tr key={t.type}>
+                        <td>{ORDER_TYPES[t.type].icon} {ORDER_TYPES[t.type].label}</td>
+                        <td>{t.orders}</td><td>{rs(t.sales)}</td>
+                        <td><Share value={t.sales} max={sales} /> {pct(t.sales, sales)}%</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot><tr><td>Total</td><td>{orders.length}</td><td>{rs(sales)}</td><td>100%</td></tr></tfoot>
+                </table>
+              )}
               <table className="rep-table">
                 <thead><tr><th>Date</th><th>Orders</th><th>Sales</th><th>Avg. order</th></tr></thead>
                 <tbody>

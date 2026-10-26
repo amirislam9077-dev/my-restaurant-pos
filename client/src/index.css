@@ -960,3 +960,4 @@ a.notify-row { color: #166534; border-color: #bbf7d0; background: #f0fdf4; white
 @media (max-width: 900px) { .ts-stats.online-stats { grid-template-columns: 1fr 1fr; } }
 .ts-h + .orders, .ts-h + .ts-table-wrap, .ts-h + .ts-empty { margin-top: 10px; }
 h3.ts-h { margin-top: 18px; }
+.rep-table.by-type { margin-bottom: 18px; }
