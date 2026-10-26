@@ -913,3 +913,16 @@ a.notify-row { color: #166534; border-color: #bbf7d0; background: #f0fdf4; white
   .admin-head .tabs { flex: 1 1 100%; min-width: 0; max-width: 100%; }
   .today-sale-btn { width: 100%; }
 }
+
+/* v42 Today Sale: per-type order detail */
+.today-sale { max-width: 520px; }
+button.ts-type { background: #fff; text-align: left; cursor: pointer; font: inherit; color: inherit; }
+button.ts-type:hover { border-color: #16a34a; }
+button.ts-type.active { border-color: #16a34a; background: #f0fdf4; box-shadow: 0 0 0 1px #16a34a; }
+.ts-detail { border: 1px solid #eee; border-radius: 10px; padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; max-height: 320px; overflow-y: auto; }
+.ts-detail-head { display: flex; justify-content: space-between; align-items: center; position: sticky; top: -8px; background: #fff; padding: 4px 0; }
+.ts-order { border-bottom: 1px dashed #eee; padding-bottom: 6px; display: flex; flex-direction: column; gap: 2px; }
+.ts-order-top { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.ts-who { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ts-amt { margin-left: auto; }
+.ts-detail, .today-sale > * { flex-shrink: 0; }
