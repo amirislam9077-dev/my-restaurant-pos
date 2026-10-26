@@ -40,10 +40,12 @@ export default function ReportsLayout() {
     return !c;
   });
 
+  // reload() keeps the page on screen (used after adding an expense)
   const load = useCallback(() => {
     api.report(from, to).then(r => { setReport(r); setError(''); }).catch(e => setError(e.message));
   }, [from, to]);
-  useEffect(() => { load(); }, [load]);
+  // New date range: show Loading... instead of the previous range's numbers
+  useEffect(() => { setReport(null); load(); }, [load]);
 
   const setRange = (f, t) => setParams({ from: f, to: t }, { replace: true });
   const active = PRESETS.find(([, , fn]) => { const [f, t] = fn(); return f === from && t === to; })?.[0];
@@ -100,6 +102,15 @@ export default function ReportsLayout() {
         </p>
         {error && <p className="error">{error}</p>}
         {!report && !error && <p className="muted">Loading...</p>}
+        {/* Empty period (e.g. "Today" before the first sale): say so and offer wider ranges */}
+        {report && !report.summary.orders && !report.summary.expenses && (
+          <div className="hint rep-empty no-print">
+            <span>📭 In tarikhon mein koi sale nahi hui. Pichhli sale dekhne ke liye:</span>
+            {PRESETS.filter(([key]) => ['7days', 'month', 'lastmonth'].includes(key)).map(([key, label, fn]) => (
+              <button key={key} className="btn-outline" onClick={() => setRange(...fn())}>{label}</button>
+            ))}
+          </div>
+        )}
         {report && <Outlet context={{ report, from, to, reload: load }} />}
       </main>
     </div>

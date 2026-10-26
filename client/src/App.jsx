@@ -83,6 +83,7 @@ export default function App() {
         <Route path="profit" element={<ProfitLoss />} />
       </Route>
       <Route path="/admin/*" element={<OldAdminRedirect />} />
+      <Route path="/report/*" element={<Navigate to="/reports" replace />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
