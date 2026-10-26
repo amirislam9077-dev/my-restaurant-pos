@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { api, auth } from '../../api';
 import PaymentModal from '../../components/PaymentModal';
+import TodaySale from '../../components/TodaySale';
 import { orderCode } from '../../orderTypes';
 
 // Setup pages, opened from the header's Manage menu
@@ -104,6 +105,7 @@ export default function AdminLayout() {
 
   const { pathname } = useLocation();
   const [manageOpen, setManageOpen] = useState(false);
+  const [todayOpen, setTodayOpen] = useState(false);
 
   // Admin is the site's home page (localhost:5173/)
   return (
@@ -140,6 +142,7 @@ export default function AdminLayout() {
             {tab('/phone', '📞 Phone', 'phone')}
             {tab('/online-orders', '🌐 Online', 'online')}
           </nav>
+          <button className="today-sale-btn" onClick={() => setTodayOpen(true)}>💰 Today Sale</button>
           {/* On a Manage page, show which one and an easy way back to orders */}
           {MANAGE.some(([to]) => to === pathname) && (
             <div className="manage-crumb">
@@ -150,6 +153,7 @@ export default function AdminLayout() {
         {error && <p className="error no-print">{error}</p>}
         <Outlet context={{ tables, orders, reload, setStatus, payTable }} />
         {payModal}
+        {todayOpen && <TodaySale onClose={() => setTodayOpen(false)} />}
       </main>
     </>
   );

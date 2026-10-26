@@ -895,3 +895,21 @@ a.notify-row { color: #166534; border-color: #bbf7d0; background: #f0fdf4; white
 .ok-status { margin: 10px 0; }
 .ok-card .primary { width: auto; padding: 12px 28px; margin-top: 8px; }
 @media (max-width: 640px) { .co-row { flex-direction: column; gap: 0; } }
+
+/* ---------- v41: Today Sale button + box ---------- */
+.admin-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.today-sale-btn { border: 0; background: #16a34a; color: #fff; font-weight: 700; padding: 9px 16px; border-radius: 50px; box-shadow: 0 3px 10px rgba(22,163,74,.3); white-space: nowrap; }
+.today-sale-btn:hover { background: #15803d; }
+.today-sale { max-width: 460px; }
+.ts-total { background: #f0fdf4; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.ts-total small, .ts-total span { color: #15803d; }
+.ts-total b { font-size: 30px; color: #166534; }
+.ts-types { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ts-type { border: 1px solid #eee; border-radius: 10px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+.ts-type b { font-size: 18px; }
+.ts-type small { color: var(--gray-text); }
+.ts-more { text-align: center; margin-top: 4px; }
+@media (max-width: 640px) {
+  .admin-head .tabs { flex: 1 1 100%; min-width: 0; max-width: 100%; }
+  .today-sale-btn { width: 100%; }
+}
