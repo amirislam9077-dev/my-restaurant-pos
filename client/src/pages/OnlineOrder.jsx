@@ -124,46 +124,9 @@ export default function OnlineOrder() {
     );
   }
 
-  const add = (id) => setCart(c => ({ ...c, [id]: (c[id] || 0) + 1 }));
-  const deals = menu.filter(m => m.old_price > m.price).slice(0, 4);
-  const pickType = (t) => { setOrderType(t); scrollToId('menu'); };
-
   return (
     <SitePage count={pieces}>
       <HeroSlider />
-
-      <section className="svc-strip">
-        {SERVICES.map(([title, icon, text, tag, type]) => (
-          <button key={title} className={`svc ${type && orderType === type ? 'active' : ''}`} onClick={() => (type ? pickType(type) : scrollToId('menu'))}>
-            <span className="svc-icon">{icon}</span>
-            <b>{title}</b>
-            <small>{text}</small>
-            <span className="svc-tag">{tag}</span>
-          </button>
-        ))}
-      </section>
-
-      {deals.length > 0 && (
-        <section className="site-sec deals-sec" id="deals">
-          <SectionHead tag="LIMITED TIME" title="Hot Deals" red="This Week" text="Don't miss out on our sizzling offers — available for a limited time only!" />
-          <div className="site-wrap deal-grid">
-            {deals.map((m, i) => (
-              <div key={m.id} className={`deal-card ${i === 1 ? 'best' : ''}`}>
-                <div className="deal-img">
-                  {m.image ? <img src={m.image} alt={m.name} loading="lazy" /> : <span>🍗</span>}
-                  <span className={`deal-badge ${i === 1 ? 'gold' : ''}`}>{i === 1 ? 'BEST SELLER' : `SAVE ${Math.round((1 - m.price / m.old_price) * 100)}%`}</span>
-                </div>
-                <div className="deal-body">
-                  <h3>{m.name}</h3>
-                  {m.description && <p>{m.description}</p>}
-                  <div className="deal-price"><s>Rs. {Number(m.old_price).toLocaleString('en-PK')}</s> <b>Rs. {Number(m.price).toLocaleString('en-PK')}</b></div>
-                  <button className="deal-add" onClick={() => add(m.id)}>{cart[m.id] ? `✓ Added (${cart[m.id]}) · Add more` : 'Add to Cart'}</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
 
       <section className="site-sec menu-sec" id="menu">
         <SectionHead tag="EXPLORE" title="Our" red="Menu" text="From crispy chicken to refreshing drinks — there's something for everyone" />
@@ -233,12 +196,6 @@ export default function OnlineOrder() {
 
 const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-// [title, icon, text, tag, order type it picks]
-const SERVICES = [
-  ['Home Delivery', '🛵', 'Get CFC delivered to your door', '30-45 min', 'Home Delivery'],
-  ['Takeaway', '🏪', 'Order online, pick up at store', 'Ready in 15 min', 'Takeaway'],
-  ['Dine In', '🍴', 'Enjoy at your nearest CFC', 'Scan table QR', null],
-];
 
 const SLIDES = [
   { img: '/uploads/cfc/hero1.jpg', tag: 'NEW ARRIVAL', title: 'Zinger Stacker', red: 'Double the Crunch', text: 'Two legendary Zinger fillets stacked with crunchy slaw & special sauce' },
@@ -305,7 +262,6 @@ function SitePage({ count, children }) {
           <nav className="site-links">
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</button>
             <button onClick={() => scrollToId('menu')}>Menu</button>
-            <button onClick={() => scrollToId(document.getElementById('deals') ? 'deals' : 'menu')}>Deals</button>
           </nav>
           <div className="site-actions">
             <button className="site-order" onClick={() => scrollToId('menu')}>🛍️ Order Now</button>

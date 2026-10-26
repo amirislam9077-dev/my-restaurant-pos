@@ -1027,44 +1027,19 @@ h3.ts-h { margin-top: 18px; }
 .hero-dots button { width: 10px; height: 10px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,.55); cursor: pointer; }
 .hero-dots button.active { background: var(--brand); width: 12px; height: 12px; }
 
-.svc-strip { background: #1a1a1a; display: grid; grid-template-columns: repeat(3, 1fr); }
-.svc { background: none; border: 0; border-right: 1px solid #333; color: #fff; padding: 24px 12px; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; font: inherit; }
-.svc:last-child { border-right: 0; }
-.svc:hover, .svc.active { background: #232323; }
-.svc-icon { font-size: 26px; }
-.svc b { font-size: 17px; }
-.svc small { color: #bbb; font-size: 13px; }
-.svc-tag { background: var(--brand); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 12px; border-radius: 50px; margin-top: 4px; }
 
 .site-sec { padding: 56px 0 40px; }
-.deals-sec { background: #f4f4f4; }
 .sec-head { text-align: center; padding: 0 16px; margin-bottom: 30px; }
 .sec-tag { display: inline-block; background: var(--brand); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 2px; padding: 5px 14px; border-radius: 50px; }
 .sec-head h2 { font-size: clamp(28px, 4vw, 42px); margin: 14px 0 10px; font-weight: 900; color: #1a1a1a; }
 .sec-head h2 span { color: var(--brand); }
 .sec-head p { color: #666; margin: 0 auto; max-width: 520px; }
-.deal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.deal-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.07); display: flex; flex-direction: column; border: 2px solid transparent; transition: transform .2s; }
-.deal-card:hover { transform: translateY(-4px); }
-.deal-card.best { border-color: var(--brand); }
-.deal-img { position: relative; height: 200px; background: #eee; display: grid; place-items: center; font-size: 60px; }
-.deal-img img { width: 100%; height: 100%; object-fit: cover; }
-.deal-badge { position: absolute; top: 12px; left: 12px; background: var(--brand); color: #fff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 50px; }
-.deal-badge.gold { background: #f5b301; color: #1a1a1a; }
-.deal-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
-.deal-body h3 { margin: 0; font-size: 18px; }
-.deal-body p { margin: 0; color: #666; font-size: 13px; flex: 1; }
-.deal-price s { color: #999; font-size: 14px; }
-.deal-price b { color: var(--brand); font-size: 20px; margin-left: 4px; }
-.deal-add { background: var(--brand); color: #fff; border: 0; border-radius: 6px; padding: 12px; font-weight: 700; cursor: pointer; margin-top: 6px; }
-.deal-add:hover { background: #c40025; }
 .menu-sec { padding-top: 48px; }
 .menu-sec .container { max-width: 1240px; padding-left: 24px; padding-right: 24px; }
 .site #cart.panel { top: 96px; }
 .site-foot { background: #1a1a1a; color: #aaa; text-align: center; padding: 22px 16px; font-size: 13px; margin-top: 24px; }
 
 @media (max-width: 1000px) {
-  .deal-grid { grid-template-columns: repeat(2, 1fr); }
   .site-links { gap: 20px; }
 }
 @media (max-width: 760px) {
@@ -1081,18 +1056,6 @@ h3.ts-h { margin-top: 18px; }
   .hero-arrow.prev { left: 12px; }
   .hero-arrow.next { right: 12px; }
   .hero-btn { padding: 11px 24px; }
-  .svc { padding: 14px 4px; }
-  .svc b { font-size: 13px; }
-  .svc small { display: none; }
-  .svc-icon { font-size: 22px; }
-  .svc-tag { font-size: 10px; padding: 2px 8px; }
   .site-sec { padding: 36px 0 24px; }
-  .deal-grid { gap: 12px; }
-  .deal-img { height: 130px; }
-  .deal-body { padding: 10px 12px 12px; }
-  .deal-body h3 { font-size: 15px; }
-  .deal-body p { display: none; }
-  .deal-price b { font-size: 16px; }
-  .deal-add { padding: 10px 6px; font-size: 13px; }
   .menu-sec .container { padding-left: 12px; padding-right: 12px; }
 }
