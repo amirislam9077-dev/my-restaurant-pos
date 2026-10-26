@@ -54,7 +54,7 @@ export default function App() {
     <Routes>
       {/* Customer side */}
       <Route path="/table/:id" element={<CustomerPage><TablePage /></CustomerPage>} />
-      <Route path="/online" element={<CustomerPage><OnlineOrder /></CustomerPage>} />
+      <Route path="/online" element={<OnlineOrder />} />
 
       {/* Admin = home page */}
       <Route path="/login" element={

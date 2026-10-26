@@ -98,6 +98,8 @@ export default function OnlineOrder() {
 
   if (done) {
     return (
+      <SitePage count={0}>
+      <main className="container">
       <div className="ok-card">
         <div className="ok-icon">✓</div>
         <h2>Thank You, {done.name}!</h2>
@@ -117,15 +119,55 @@ export default function OnlineOrder() {
         )}
         <button className="primary" onClick={() => setDone(null)}>🍗 Naya Order</button>
       </div>
+      </main>
+      </SitePage>
     );
   }
 
+  const add = (id) => setCart(c => ({ ...c, [id]: (c[id] || 0) + 1 }));
+  const deals = menu.filter(m => m.old_price > m.price).slice(0, 4);
+  const pickType = (t) => { setOrderType(t); scrollToId('menu'); };
+
   return (
-    <>
-      <div className="co-hero">
-        <h2>🛵 Online Order</h2>
-        <p>Menu se items chunein, phir neeche apni detail likh kar order karein</p>
-      </div>
+    <SitePage count={pieces}>
+      <HeroSlider />
+
+      <section className="svc-strip">
+        {SERVICES.map(([title, icon, text, tag, type]) => (
+          <button key={title} className={`svc ${type && orderType === type ? 'active' : ''}`} onClick={() => (type ? pickType(type) : scrollToId('menu'))}>
+            <span className="svc-icon">{icon}</span>
+            <b>{title}</b>
+            <small>{text}</small>
+            <span className="svc-tag">{tag}</span>
+          </button>
+        ))}
+      </section>
+
+      {deals.length > 0 && (
+        <section className="site-sec deals-sec" id="deals">
+          <SectionHead tag="LIMITED TIME" title="Hot Deals" red="This Week" text="Don't miss out on our sizzling offers — available for a limited time only!" />
+          <div className="site-wrap deal-grid">
+            {deals.map((m, i) => (
+              <div key={m.id} className={`deal-card ${i === 1 ? 'best' : ''}`}>
+                <div className="deal-img">
+                  {m.image ? <img src={m.image} alt={m.name} loading="lazy" /> : <span>🍗</span>}
+                  <span className={`deal-badge ${i === 1 ? 'gold' : ''}`}>{i === 1 ? 'BEST SELLER' : `SAVE ${Math.round((1 - m.price / m.old_price) * 100)}%`}</span>
+                </div>
+                <div className="deal-body">
+                  <h3>{m.name}</h3>
+                  {m.description && <p>{m.description}</p>}
+                  <div className="deal-price"><s>Rs. {Number(m.old_price).toLocaleString('en-PK')}</s> <b>Rs. {Number(m.price).toLocaleString('en-PK')}</b></div>
+                  <button className="deal-add" onClick={() => add(m.id)}>{cart[m.id] ? `✓ Added (${cart[m.id]}) · Add more` : 'Add to Cart'}</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="site-sec menu-sec" id="menu">
+        <SectionHead tag="EXPLORE" title="Our" red="Menu" text="From crispy chicken to refreshing drinks — there's something for everyone" />
+      <main className="container">
       <div className="two-col">
         <MenuPicker menu={menu} cart={cart} setCart={setCart} />
 
@@ -182,7 +224,99 @@ export default function OnlineOrder() {
           </button>
         </form>
       </div>
+      </main>
+      </section>
       <CartBar menu={menu} cart={cart} targetId="cart" />
-    </>
+    </SitePage>
+  );
+}
+
+const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+// [title, icon, text, tag, order type it picks]
+const SERVICES = [
+  ['Home Delivery', '🛵', 'Get CFC delivered to your door', '30-45 min', 'Home Delivery'],
+  ['Takeaway', '🏪', 'Order online, pick up at store', 'Ready in 15 min', 'Takeaway'],
+  ['Dine In', '🍴', 'Enjoy at your nearest CFC', 'Scan table QR', null],
+];
+
+const SLIDES = [
+  { img: '/uploads/cfc/hero1.jpg', tag: 'NEW ARRIVAL', title: 'Zinger Stacker', red: 'Double the Crunch', text: 'Two legendary Zinger fillets stacked with crunchy slaw & special sauce' },
+  { img: '/uploads/cfc/hero2.jpg', tag: 'HOT DEALS', title: 'Family Feast', red: 'Feed the Family', text: '8 pieces of original recipe chicken + 4 sides + 4 drinks' },
+  { img: '/uploads/cfc/hero3.jpg', tag: 'CLASSIC TASTE', title: 'Original Recipe', red: '11 Herbs & Spices', text: "The legendary recipe that started it all — crispy, juicy, finger lickin' good" },
+];
+
+function HeroSlider() {
+  const [i, setI] = useState(0);
+  // Auto-advance; restarts the 5s timer whenever the slide changes (also after a manual click)
+  useEffect(() => {
+    const t = setTimeout(() => setI(n => (n + 1) % SLIDES.length), 5000);
+    return () => clearTimeout(t);
+  }, [i]);
+  const go = (d) => setI(n => (n + d + SLIDES.length) % SLIDES.length);
+  return (
+    <section className="site-hero" id="top">
+      {SLIDES.map((s, n) => (
+        <div key={s.tag} className={`hero-slide ${n === i ? 'active' : ''}`}
+          style={{ backgroundImage: `linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url(${s.img})` }}>
+          <div className="hero-content">
+            <span className="hero-tag">{s.tag}</span>
+            <h1>{s.title}<br /><span>{s.red}</span></h1>
+            <p>{s.text}</p>
+            <div className="hero-btns">
+              <button className="hero-btn" onClick={() => scrollToId('menu')}>Order Now</button>
+              <button className="hero-btn ghost" onClick={() => scrollToId('menu')}>View Menu</button>
+            </div>
+          </div>
+        </div>
+      ))}
+      <button className="hero-arrow prev" aria-label="Previous" onClick={() => go(-1)}>‹</button>
+      <button className="hero-arrow next" aria-label="Next" onClick={() => go(1)}>›</button>
+      <div className="hero-dots">
+        {SLIDES.map((s, n) => <button key={s.tag} aria-label={`Slide ${n + 1}`} className={n === i ? 'active' : ''} onClick={() => setI(n)} />)}
+      </div>
+    </section>
+  );
+}
+
+function SectionHead({ tag, title, red, text }) {
+  return (
+    <div className="sec-head">
+      <span className="sec-tag">{tag}</span>
+      <h2>{title} <span>{red}</span></h2>
+      <p>{text}</p>
+    </div>
+  );
+}
+
+// CFC website header (red top bar + white nav with Order Now and cart count)
+function SitePage({ count, children }) {
+  return (
+    <div className="site">
+      <div className="site-top">
+        <div className="site-wrap">
+          <span>📞 0317-1111532</span>
+          <span>✉️ support@cfcpakistan.com</span>
+        </div>
+      </div>
+      <header className="site-nav">
+        <div className="site-wrap">
+          <a href="#top" className="site-logo" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>CFC</a>
+          <nav className="site-links">
+            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</button>
+            <button onClick={() => scrollToId('menu')}>Menu</button>
+            <button onClick={() => scrollToId(document.getElementById('deals') ? 'deals' : 'menu')}>Deals</button>
+          </nav>
+          <div className="site-actions">
+            <button className="site-order" onClick={() => scrollToId('menu')}>🛍️ Order Now</button>
+            <button className="site-cart" aria-label="Cart" onClick={() => scrollToId('cart')}>
+              🛒{count > 0 && <span>{count}</span>}
+            </button>
+          </div>
+        </div>
+      </header>
+      {children}
+      <footer className="site-foot">© CFC Pakistan · Finger lickin' good</footer>
+    </div>
   );
 }
