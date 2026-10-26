@@ -1100,3 +1100,15 @@ h3.ts-h { margin-top: 18px; }
   .rep-custom input { width: 100%; min-width: 0; box-sizing: border-box; font-size: 14px; padding: 7px 6px; }
   .rep-custom .btn-outline { grid-column: 1 / -1; }
 }
+/* v49 Hero image via CSS variable: dark overlay on wide screens; on phones the whole picture shows with the text below it */
+.hero-slide { background-image: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), var(--hero-img); }
+@media (max-width: 640px) {
+  .site-hero { height: auto; display: grid; }
+  .hero-slide { position: relative; grid-area: 1 / 1; inset: auto; display: block; background-image: var(--hero-img); background-size: 100% auto; background-position: top center; background-repeat: no-repeat; background-color: #1a1a1a; padding-top: calc(100vw * 900 / 1920); padding-bottom: 44px; }
+  .hero-content { padding: 16px 16px 0; }
+  .hero-content h1 { font-size: 30px; margin: 10px 0 8px; }
+  .hero-content p { font-size: 14px; margin-bottom: 14px; }
+  .hero-btn { padding: 10px 22px; font-size: 14px; }
+  .hero-arrow { top: calc(100vw * 900 / 1920 / 2 - 18px); bottom: auto; width: 36px; height: 36px; font-size: 22px; }
+  .hero-dots { bottom: 14px; }
+}

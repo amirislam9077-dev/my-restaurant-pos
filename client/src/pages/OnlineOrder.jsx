@@ -215,7 +215,7 @@ function HeroSlider() {
     <section className="site-hero" id="top">
       {SLIDES.map((s, n) => (
         <div key={s.tag} className={`hero-slide ${n === i ? 'active' : ''}`}
-          style={{ backgroundImage: `linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url(${s.img})` }}>
+          style={{ "--hero-img": `url(${s.img})` }}>
           <div className="hero-content">
             <span className="hero-tag">{s.tag}</span>
             <h1>{s.title}<br /><span>{s.red}</span></h1>
