@@ -98,7 +98,7 @@ export default function OnlineOrder() {
 
   if (done) {
     return (
-      <SitePage count={0}>
+      <SitePage count={0} onLeave={() => setDone(null)}>
       <main className="container">
       <div className="ok-card">
         <div className="ok-icon">✓</div>
@@ -247,7 +247,12 @@ function SectionHead({ tag, title, red, text }) {
 }
 
 // CFC website header (red top bar + white nav with Order Now and cart count)
-function SitePage({ count, children }) {
+// onLeave: on the Thank You screen, go back to the menu page first so the links have something to scroll to
+function SitePage({ count, onLeave, children }) {
+  const go = (id) => {
+    if (onLeave) onLeave();
+    setTimeout(() => (id === 'top' ? window.scrollTo({ top: 0, behavior: 'smooth' }) : scrollToId(id)), onLeave ? 60 : 0);
+  };
   return (
     <div className="site">
       <div className="site-top">
@@ -258,14 +263,14 @@ function SitePage({ count, children }) {
       </div>
       <header className="site-nav">
         <div className="site-wrap">
-          <a href="#top" className="site-logo" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>CFC</a>
+          <a href="#top" className="site-logo" onClick={e => { e.preventDefault(); go('top'); }}>CFC</a>
           <nav className="site-links">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</button>
-            <button onClick={() => scrollToId('menu')}>Menu</button>
+            <button onClick={() => go('top')}>Home</button>
+            <button onClick={() => go('menu')}>Menu</button>
           </nav>
           <div className="site-actions">
-            <button className="site-order" onClick={() => scrollToId('menu')}>🛍️ Order Now</button>
-            <button className="site-cart" aria-label="Cart" onClick={() => scrollToId('cart')}>
+            <button className="site-order" onClick={() => go('menu')}>🛍️ Order Now</button>
+            <button className="site-cart" aria-label="Cart" onClick={() => go('cart')}>
               🛒{count > 0 && <span>{count}</span>}
             </button>
           </div>
