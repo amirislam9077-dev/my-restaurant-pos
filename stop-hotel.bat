@@ -7,7 +7,7 @@ echo.
 echo  === My Restaurant band ho raha hai ===
 
 call :kill_port 5173 "Website + Admin"
-call :kill_port 5000 "API server"
+call :kill_port 5001 "API server"
 
 rem Database ko sahi tareeqe se band karein (data safe rahe)
 netstat -ano | findstr /r /c:":3307 .*LISTENING" >nul

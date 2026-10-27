@@ -2,7 +2,7 @@
 rem ============================================================
 rem  My Restaurant - sab kuch ek click mein start karta hai
 rem   1. Database   (XAMPP MariaDB, port 3307)
-rem   2. API server (port 5000)
+rem   2. API server (port 5001)
 rem   3. Admin + customer pages (port 5173, WiFi pe bhi; admin = home page)
 rem  Jo cheez pehle se chal rahi ho usay dobara start nahi karta.
 rem ============================================================
@@ -29,11 +29,11 @@ if errorlevel 1 (
   echo  [1/3] Database pehle se chal raha hai
 )
 
-call :is_running 5000
+call :is_running 5001
 if errorlevel 1 (
   echo  [2/3] API server start ho raha hai...
   start "Hotel API" /min cmd /c "cd /d "%~dp0server" && node index.js"
-  call :wait_for 5000 || echo     ! API server start nahi hua - "Hotel API" window check karein
+  call :wait_for 5001 || echo     ! API server start nahi hua - "Hotel API" window check karein
 ) else (
   echo  [2/3] API server pehle se chal raha hai
 )
