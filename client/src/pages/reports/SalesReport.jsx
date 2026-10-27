@@ -50,7 +50,7 @@ export default function SalesReport() {
             <thead><tr><th>Type</th><th>Orders</th><th>Sales</th><th>Share</th></tr></thead>
             <tbody>
               {byType.map(t => (
-                <tr key={t.type} title="Click for details" onClick={() => navigate(`/reports/orders?from=${from}&to=${to}&type=${t.type}`)}>
+                <tr key={t.type} title="Click for details" onClick={() => navigate(`/admin/orders?from=${from}&to=${to}&type=${t.type}`)}>
                   <td>{ORDER_TYPES[t.type].icon} {ORDER_TYPES[t.type].label}</td><td>{t.orders}</td><td>{rs(t.sales)}</td>
                   <td><Share value={t.sales} max={s.sales} /> {pct(t.sales, s.sales)}%</td>
                 </tr>

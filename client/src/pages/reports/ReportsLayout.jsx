@@ -69,13 +69,13 @@ export default function ReportsLayout() {
           </div>
         </div>
         <nav className="rep-nav">
-          {link('/reports', '📊', 'Dashboard')}
-          {link('/reports/orders', '📋', 'Orders')}
-          {link('/reports/scale', '⚖️', 'Scale')}
-          {link('/reports/sales', '💰', 'Sales')}
-          {link('/reports/waiters', '🧑‍🍳', 'Waiters')}
-          {link('/reports/expenses', '🧾', 'Expenses')}
-          {link('/reports/profit', '📈', 'Profit & Loss')}
+          {link('/admin', '📊', 'Dashboard')}
+          {link('/admin/orders', '📋', 'Orders')}
+          {link('/admin/scale', '⚖️', 'Scale')}
+          {link('/admin/sales', '💰', 'Sales')}
+          {link('/admin/waiters', '🧑‍🍳', 'Waiters')}
+          {link('/admin/expenses', '🧾', 'Expenses')}
+          {link('/admin/profit', '📈', 'Profit & Loss')}
           {/* Customer website (online order page), in a new tab so the reports stay open */}
           <a href="/online" target="_blank" rel="noreferrer" className="rep-link rep-site" title="Website">
             <span className="rep-icon">🌐</span><span className="rep-label">Website ↗</span>

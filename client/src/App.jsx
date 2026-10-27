@@ -42,11 +42,10 @@ function CustomerPage({ children }) {
   );
 }
 
-// Old /admin/... links and bookmarks: admin now lives at the site root
-function OldAdminRedirect() {
+// Old /reports/... and /report/... links and bookmarks: owner reports now live at /admin
+function OldReportsRedirect() {
   const { pathname, search } = useLocation();
-  const rest = pathname.replace(/^\/admin/, '') || '/';
-  return <Navigate to={(rest === '/online' ? '/online-orders' : rest) + search} replace />;
+  return <Navigate to={pathname.replace(/^\/reports?/, '/admin') + search} replace />;
 }
 
 export default function App() {
@@ -76,7 +75,7 @@ export default function App() {
         <Route path="bill/:kind/:id" element={<BillPage />} />
       </Route>
       {/* Owner reports with a left navbar */}
-      <Route path="/reports" element={<ReportsGate><ReportsLayout /></ReportsGate>}>
+      <Route path="/admin" element={<ReportsGate><ReportsLayout /></ReportsGate>}>
         <Route index element={<Dashboard />} />
         <Route path="sales" element={<SalesReport />} />
         <Route path="orders" element={<OrdersReport />} />
@@ -85,8 +84,8 @@ export default function App() {
         <Route path="expenses" element={<Expenses />} />
         <Route path="profit" element={<ProfitLoss />} />
       </Route>
-      <Route path="/admin/*" element={<OldAdminRedirect />} />
-      <Route path="/report/*" element={<Navigate to="/reports" replace />} />
+      <Route path="/reports/*" element={<OldReportsRedirect />} />
+      <Route path="/report/*" element={<OldReportsRedirect />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

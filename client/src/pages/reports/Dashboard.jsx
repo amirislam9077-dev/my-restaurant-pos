@@ -13,7 +13,7 @@ export default function Dashboard() {
     <>
       <div className="kpis">
         <Kpi label="💰 Total Sales" value={rs(s.sales)} note={`${s.orders} paid orders`} />
-        <Kpi label="🧾 Total Expenses" value={rs(s.expenses)} note={<Link to={`/reports/expenses${q}`}>Add expense →</Link>} />
+        <Kpi label="🧾 Total Expenses" value={rs(s.expenses)} note={<Link to={`/admin/expenses${q}`}>Add expense →</Link>} />
         <Kpi label="📈 Profit / Loss" value={<ProfitValue value={s.profit} />} tone={s.profit >= 0 ? 'good' : 'bad'}
           note={s.sales ? `${pct(s.profit, s.sales)}% of sales` : ''} />
         <Kpi label="🧮 Avg. order" value={rs(s.avgOrder)} />
@@ -29,7 +29,7 @@ export default function Dashboard() {
             <thead><tr><th>Type</th><th>Orders</th><th>Sales</th><th>Share</th></tr></thead>
             <tbody>
               {byType.map(t => (
-                <tr key={t.type} title="Click for details" onClick={() => navigate(`/reports/orders?from=${from}&to=${to}&type=${t.type}`)}>
+                <tr key={t.type} title="Click for details" onClick={() => navigate(`/admin/orders?from=${from}&to=${to}&type=${t.type}`)}>
                   <td>{ORDER_TYPES[t.type].icon} {ORDER_TYPES[t.type].label}</td>
                   <td>{t.orders}</td>
                   <td>{rs(t.sales)}</td>
@@ -42,7 +42,7 @@ export default function Dashboard() {
         </section>
 
         <section className="rep-card">
-          <h3>Top 5 items <Link to={`/reports/sales${q}`} className="rep-more">View all →</Link></h3>
+          <h3>Top 5 items <Link to={`/admin/sales${q}`} className="rep-more">View all →</Link></h3>
           <table className="rep-table">
             <thead><tr><th>Item</th><th>Qty</th><th>Sales</th></tr></thead>
             <tbody>
@@ -55,7 +55,7 @@ export default function Dashboard() {
         </section>
 
         <section className="rep-card">
-          <h3>Top waiters <Link to={`/reports/waiters${q}`} className="rep-more">View all →</Link></h3>
+          <h3>Top waiters <Link to={`/admin/waiters${q}`} className="rep-more">View all →</Link></h3>
           <table className="rep-table">
             <thead><tr><th>Waiter</th><th>Orders</th><th>Sales</th></tr></thead>
             <tbody>

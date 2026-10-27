@@ -85,7 +85,7 @@ export default function TodaySale({ onClose }) {
               </table>
             </div>
           )}
-          <Link className="btn-outline ts-more" to={`/reports?from=${day}&to=${day}`} onClick={onClose}>📊 Open full report →</Link>
+          <Link className="btn-outline ts-more" to={`/admin?from=${day}&to=${day}`} onClick={onClose}>📊 Open full report →</Link>
         </>
       )}
     </div>

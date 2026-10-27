@@ -130,7 +130,7 @@ export default function AdminLayout() {
               </>
             )}
           </div>
-          <Link to="/reports" className="reports-link">📊<span className="hdr-label"> Reports</span></Link>
+          <Link to="/admin" className="reports-link">📊<span className="hdr-label"> Reports</span></Link>
           <span className="hdr-user">👤<span className="hdr-label"> {auth.user()}</span></span>
           <button className="link" onClick={logout}>Logout</button>
         </nav>
